@@ -1,0 +1,854 @@
+{
+	"frames": [{
+			"filename": "rocks_1",
+			"frame": {
+				"x": 41,
+				"y": 24,
+				"w": 98,
+				"h": 76
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 98,
+				"h": 76
+			},
+			"sourceSize": {
+				"w": 98,
+				"h": 76
+			}
+		}, {
+			"filename": "platform_1-3",
+			"frame": {
+				"x": 325,
+				"y": 43,
+				"w": 59,
+				"h": 97
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 59,
+				"h": 97
+			},
+			"sourceSize": {
+				"w": 59,
+				"h": 97
+			}
+		}, {
+			"filename": "platform_2-3",
+			"frame": {
+				"x": 400,
+				"y": 43,
+				"w": 16,
+				"h": 96
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 16,
+				"h": 96
+			},
+			"sourceSize": {
+				"w": 16,
+				"h": 96
+			}
+		}, {
+			"filename": "platform_3-3",
+			"frame": {
+				"x": 432,
+				"y": 43,
+				"w": 59,
+				"h": 97
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 59,
+				"h": 97
+			},
+			"sourceSize": {
+				"w": 59,
+				"h": 97
+			}
+		}, {
+			"filename": "tree",
+			"frame": {
+				"x": 191,
+				"y": 46,
+				"w": 123,
+				"h": 114
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 123,
+				"h": 114
+			},
+			"sourceSize": {
+				"w": 123,
+				"h": 114
+			}
+		}, {
+			"filename": "granite_2",
+			"frame": {
+				"x": 688,
+				"y": 48,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			}
+		}, {
+			"filename": "granite_5",
+			"frame": {
+				"x": 755,
+				"y": 48,
+				"w": 29,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 29,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 29,
+				"h": 32
+			}
+		}, {
+			"filename": "granite_8",
+			"frame": {
+				"x": 832,
+				"y": 48,
+				"w": 29,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 29,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 29,
+				"h": 32
+			}
+		}, {
+			"filename": "sprite10",
+			"frame": {
+				"x": 537,
+				"y": 56,
+				"w": 32,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 32
+			}
+		}, {
+			"filename": "sprite11",
+			"frame": {
+				"x": 601,
+				"y": 56,
+				"w": 48,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 32
+			}
+		}, {
+			"filename": "granite_6",
+			"frame": {
+				"x": 768,
+				"y": 96,
+				"w": 32,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 32
+			}
+		}, {
+			"filename": "granite_7",
+			"frame": {
+				"x": 816,
+				"y": 96,
+				"w": 32,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 32
+			}
+		}, {
+			"filename": "sprite14",
+			"frame": {
+				"x": 543,
+				"y": 104,
+				"w": 64,
+				"h": 40
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 40
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 40
+			}
+		}, {
+			"filename": "rocks_4",
+			"frame": {
+				"x": 144,
+				"y": 105,
+				"w": 32,
+				"h": 55
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 55
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 55
+			}
+		}, {
+			"filename": "granite_1",
+			"frame": {
+				"x": 672,
+				"y": 112,
+				"w": 16,
+				"h": 16
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 16,
+				"h": 16
+			},
+			"sourceSize": {
+				"w": 16,
+				"h": 16
+			}
+		}, {
+			"filename": "granite_3",
+			"frame": {
+				"x": 704,
+				"y": 112,
+				"w": 32,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 32
+			}
+		}, {
+			"filename": "rocks_2",
+			"frame": {
+				"x": 48,
+				"y": 121,
+				"w": 48,
+				"h": 39
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 39
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 39
+			}
+		}, {
+			"filename": "granite_4",
+			"frame": {
+				"x": 740,
+				"y": 144,
+				"w": 44,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 32
+			}
+		}, {
+			"filename": "granite_9",
+			"frame": {
+				"x": 848,
+				"y": 144,
+				"w": 44,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 32
+			}
+		}, {
+			"filename": "rocks_11",
+			"frame": {
+				"x": 432,
+				"y": 166,
+				"w": 32,
+				"h": 42
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 42
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 42
+			}
+		}, {
+			"filename": "rocks_3",
+			"frame": {
+				"x": 36,
+				"y": 177,
+				"w": 92,
+				"h": 111
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 92,
+				"h": 111
+			},
+			"sourceSize": {
+				"w": 92,
+				"h": 111
+			}
+		}, {
+			"filename": "rocks_7",
+			"frame": {
+				"x": 256,
+				"y": 180,
+				"w": 32,
+				"h": 44
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 44
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 44
+			}
+		}, {
+			"filename": "rocks_5",
+			"frame": {
+				"x": 144,
+				"y": 183,
+				"w": 32,
+				"h": 41
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 41
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 41
+			}
+		}, {
+			"filename": "rocks_9",
+			"frame": {
+				"x": 352,
+				"y": 183,
+				"w": 16,
+				"h": 25
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 16,
+				"h": 25
+			},
+			"sourceSize": {
+				"w": 16,
+				"h": 25
+			}
+		}, {
+			"filename": "rocks_6",
+			"frame": {
+				"x": 192,
+				"y": 186,
+				"w": 48,
+				"h": 38
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 38
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 38
+			}
+		}, {
+			"filename": "rocks_8",
+			"frame": {
+				"x": 304,
+				"y": 186,
+				"w": 32,
+				"h": 22
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 22
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 22
+			}
+		}, {
+			"filename": "rocks_12",
+			"frame": {
+				"x": 480,
+				"y": 186,
+				"w": 16,
+				"h": 22
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 16,
+				"h": 22
+			},
+			"sourceSize": {
+				"w": 16,
+				"h": 22
+			}
+		}, {
+			"filename": "sprite29",
+			"frame": {
+				"x": 512,
+				"y": 186,
+				"w": 44,
+				"h": 86
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 44,
+				"h": 86
+			},
+			"sourceSize": {
+				"w": 44,
+				"h": 86
+			}
+		}, {
+			"filename": "rocks_10",
+			"frame": {
+				"x": 384,
+				"y": 187,
+				"w": 32,
+				"h": 21
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 21
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 21
+			}
+		}, {
+			"filename": "fence_2-3",
+			"frame": {
+				"x": 640,
+				"y": 187,
+				"w": 32,
+				"h": 31
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 31
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 31
+			}
+		}, {
+			"filename": "fence_1-3",
+			"frame": {
+				"x": 583,
+				"y": 188,
+				"w": 41,
+				"h": 30
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 41,
+				"h": 30
+			},
+			"sourceSize": {
+				"w": 41,
+				"h": 30
+			}
+		}, {
+			"filename": "fence_3-3",
+			"frame": {
+				"x": 688,
+				"y": 188,
+				"w": 41,
+				"h": 30
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 41,
+				"h": 30
+			},
+			"sourceSize": {
+				"w": 41,
+				"h": 30
+			}
+		}, {
+			"filename": "rocks_hole",
+			"frame": {
+				"x": 752,
+				"y": 192,
+				"w": 96,
+				"h": 112
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 96,
+				"h": 112
+			},
+			"sourceSize": {
+				"w": 96,
+				"h": 112
+			}
+		}, {
+			"filename": "sprite35",
+			"frame": {
+				"x": 368,
+				"y": 232,
+				"w": 32,
+				"h": 40
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 40
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 40
+			}
+		}, {
+			"filename": "sprite36",
+			"frame": {
+				"x": 320,
+				"y": 236,
+				"w": 32,
+				"h": 36
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 36
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 36
+			}
+		}, {
+			"filename": "sprite37",
+			"frame": {
+				"x": 416,
+				"y": 236,
+				"w": 32,
+				"h": 36
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 36
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 36
+			}
+		}, {
+			"filename": "rocks_plant",
+			"frame": {
+				"x": 144,
+				"y": 240,
+				"w": 32,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 32
+			}
+		}, {
+			"filename": "rocks_inner_1",
+			"frame": {
+				"x": 192,
+				"y": 240,
+				"w": 32,
+				"h": 64
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 64
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 64
+			}
+		}, {
+			"filename": "rocks_inner_2",
+			"frame": {
+				"x": 240,
+				"y": 240,
+				"w": 64,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 32
+			}
+		}, {
+			"filename": "slope_left",
+			"frame": {
+				"x": 576,
+				"y": 240,
+				"w": 64,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 48
+			}
+		}, {
+			"filename": "slope_right",
+			"frame": {
+				"x": 656,
+				"y": 240,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			}
+		}, {
+			"filename": "sprite43",
+			"frame": {
+				"x": 464,
+				"y": 243,
+				"w": 32,
+				"h": 45
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 45
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 45
+			}
+		}
+	],
+	"meta": {
+		"app": "https://www.leshylabs.com/apps/sstool/",
+		"version": "Leshy SpriteSheet Tool v0.8.4",
+		"image": "tileset.png",
+		"size": {
+			"w": 928,
+			"h": 320
+		},
+		"scale": 1
+	}
+}
