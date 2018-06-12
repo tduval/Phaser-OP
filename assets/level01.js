@@ -18,14 +18,11 @@ level01.prototype = {
 
         // Create the player in the middle of the game
         this.player = this.game.add.sprite(game.world.centerX/2, game.world.centerY, 'myPlayerSprite');
-        this.player.flipX = true;
-        console.log("game.world.centerX : ", game.world.centerX);
-        console.log("game.world.centerY : ", game.world.centerY);
 
         // Add gravity to make it fall
         this.player.body.gravity.y = 600;
 
-                // Create 3 groups that will contain our objects
+        // Create 3 groups that will contain our objects
         this.walls = this.game.add.group();
         this.coins = this.game.add.group();
         this.enemies = this.game.add.group();
@@ -44,7 +41,6 @@ level01.prototype = {
         // Create the level by going through the array
         for (var i = 0; i < level.length; i++) {
             for (var j = 0; j < level[i].length; j++) {
-
                 // Create a wall and add it to the 'walls' group
                 if (level[i][j] == 'x') {
                     var wall = this.game.add.sprite(30+20*j, 30+20*i, 'myTilesetSprite', 'rocks_1');
@@ -53,6 +49,7 @@ level01.prototype = {
                 }
             }
         }
+
 
     },
     update: function(){
@@ -80,15 +77,5 @@ level01.prototype = {
             this.player.body.velocity.y = -250;
         }
     },
-    // Function to kill a coin
-    takeCoin: function(player, coin) {
-        coin.kill();
-    },
-
-    // Function to restart the game
-    restart: function() {
-        console.log("Hhhhhhh");
-        //this.game.state.start('gameover');
-    }
 
 }
