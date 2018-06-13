@@ -11,8 +11,8 @@ preload.prototype = {
 
         //load all the assets : images/sprites/spritesheet/atlas/tileset
         this.load.image('sky', './assets/images/sky.png'); // 112x304
-        this.load.image('clouds', './assets/images/clouds.png'); // 544x236
-        this.load.image('sea', './assets/images/sea.png'); // 112x96
+        this.load.image('clouds', './assets/images/clouds-1.png'); //800x421
+        this.load.image('sea', './assets/images/sea-1.png'); // 800x215
         this.load.image('islands', './assets/images/island-1.png'); // 689x112
         this.load.image('far-grounds', './assets/images/far-grounds.png'); // 616x110
 

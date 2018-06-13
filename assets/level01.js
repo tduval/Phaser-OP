@@ -7,6 +7,11 @@ level01.prototype = {
         // Set the background color to blue
         this.game.stage.backgroundColor = '#74b4ed';
 
+        //  The scrolling background
+        bg_clouds = game.add.tileSprite(0, 40, game.world.width, 50, 'clouds');
+        bg_sea = game.add.tileSprite(0, game.world.height-110, game.world.width, 100, 'sea');
+        bg_islands = game.add.tileSprite(0, game.world.centerY/3, game.world.width, 112, 'islands');
+
         // Start the Arcade physics system (for movements and collisions)
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -17,7 +22,7 @@ level01.prototype = {
         this.cursor = this.game.input.keyboard.createCursorKeys();
 
         // Create the player in the middle of the game
-        this.player = this.game.add.sprite(game.world.centerX/2, game.world.centerY, 'myPlayerSprite');
+        this.player = this.game.add.sprite(game.world.width/3, game.world.centerY, 'myPlayerSprite');
         this.player.scale.x *= -1;
         // Add gravity to make it fall
         this.player.body.gravity.y = 600;
@@ -85,8 +90,18 @@ level01.prototype = {
             this.player.play('atk_stamp_side');
         }
 
-        this.game.debug.scale(10, 15)
+
         this.player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
+        //  Scroll the background
+        bg_clouds.tilePosition.x -= 0.1;
+        bg_sea.tilePosition.x -= 0.25;
+        bg_islands.tilePosition.x -= 0.5;
+
+        // Sprite debug info
+        this.game.debug.spriteInfo(bg_clouds, 32, 32);
+        //this.game.debug.spriteBounds(bg_clouds);
+        //this.game.debug.scale(10, 15)
+
     },
 
 }
