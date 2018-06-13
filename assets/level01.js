@@ -18,10 +18,9 @@ level01.prototype = {
 
         // Create the player in the middle of the game
         this.player = this.game.add.sprite(game.world.centerX/2, game.world.centerY, 'myPlayerSprite');
-
+        this.player.scale.x *= -1;
         // Add gravity to make it fall
         this.player.body.gravity.y = 600;
-
         // Create 3 groups that will contain our objects
         this.walls = this.game.add.group();
         this.coins = this.game.add.group();
@@ -50,6 +49,13 @@ level01.prototype = {
             }
         }
 
+        //Create all the character animation based on JSON atlas file
+
+        for (var i = 0; i < animList.length; i++) {
+            var ani = this.player.animations.add(animList[i], Phaser.Animation.generateFrameNames(animList[i]+'-',0,99), 12, false); //name, frames, frameRate, loop
+        }
+
+        this.player.play('run_side');
 
     },
     update: function(){
@@ -68,6 +74,7 @@ level01.prototype = {
         }
         else if (this.cursor.right.isDown){
             this.player.body.velocity.x = 200;
+            this.player.play('atk_gatling_side');
         }
         else{
             this.player.body.velocity.x = 0;
@@ -75,7 +82,16 @@ level01.prototype = {
         // Make the player jump if he is touching the ground
         if (this.cursor.up.isDown && this.player.body.touching.down) {
             this.player.body.velocity.y = -250;
+            this.player.play('atk_stamp_side');
         }
+
+        this.game.debug.scale(10, 15)
+        this.player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
     },
 
+}
+
+function playerIdleAnim(){
+    //console.log("Current Anim : ",this.player.animations.currentAnim);
+    this.player.play('run_side', true);
 }

@@ -4,17 +4,13 @@ var config = {
     width: 500,
     height: 200,
     parent: document.getElementById("divPhaser"),
-    physics: {
-            default: 'arcade',
-            arcade: {
-                gravity: { y: 200 },
-                debug: true
-            }
-    }
+    physicsConfig: { arcade: true },
 };
 
-console.log("Init Game Config... ", config);
+var player;
+
 var game = new Phaser.Game(config);
+console.log("Init Game Config... ", game);
 
 //Add different state stage to the Game object
 game.state.add("boot",boot);

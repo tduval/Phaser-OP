@@ -4,5 +4,9 @@
 
 .col, .col-sm-3, .col-sm-9 {
     border: dotted 1px grey;
-    padding: 10px;
+    padding: 0px;
+}
+
+#divCanvasWrapper {
+    margin: 10px;
 }
