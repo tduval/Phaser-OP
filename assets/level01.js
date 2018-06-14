@@ -31,9 +31,10 @@ level01.prototype = {
 
         // Create 3 groups that will contain our objects
         this.grounds = this.game.add.group();
+        this.trees = this.game.add.group();
         this.coins = this.game.add.group();
         this.enemies = this.game.add.group();
-
+        createInitialDecorationTile(this.trees, 10) //create 20 trees
         createInitialGroundTile(this.grounds);
 
         //Create all the character animation based on JSON atlas file
@@ -78,12 +79,14 @@ level01.prototype = {
         bg_clouds.tilePosition.x -= 0.1;
         bg_sea.tilePosition.x -= 0.25;
         bg_islands.tilePosition.x -= 0.3;
+        createScrollingDecorationTile(this.trees);
         createScrollingGroundTile(this.grounds);
-
+        this.player.bringToTop();
     },
     render: function(){
         // render FPS on the top-right corner of the screen
         this.game.debug.text(this.game.time.fps || '--', this.game.world.width-30, 20, "#00ff00", "20px Courier");
+
         // Sprite debug info
         //this.game.debug.spriteInfo(bg_clouds, 32, 32);
         //this.game.debug.spriteBounds(bg_clouds);
@@ -93,7 +96,6 @@ level01.prototype = {
 }
 
 function playerIdleAnim(){
-    //console.log("Current Anim : ",this.player.animations.currentAnim);
     this.player.play('run_side', true);
 }
 
@@ -109,17 +111,51 @@ function createInitialGroundTile(grounds){
     }
 }
 
+function createInitialDecorationTile(trees, total){
+    for(var i = 0; i < total; i++) {
+        var tree = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.width), (this.game.world.height - 38) - 110, 'tree');
+        trees.add(tree);
+    }
+}
+
 function createScrollingGroundTile(grounds) {
     var tileWidth = 48;
     var tileHeight = 38;
     var tileScrollingX = 0.8;
     var tilesPerGameWidth = (this.game.world.width / tileWidth) + 1;
+    var ground;
 
     for (var i = 0; i < grounds.length; i++) {
-        var ground = grounds.getChildAt(i);
-        ground.position.x -= tileScrollingX; //scroll each tile of the group to -tileScrollingX (pixel)
+        ground = grounds.getChildAt(i);
+
         if (ground.position.x < 0-tileWidth) {
             ground.position.x = (0-tileWidth) + (tileWidth * tilesPerGameWidth);
+            ground.bringToTop();
+        }
+        //scroll each tile of the group to -tileScrollingX (pixel)
+        ground.position.x -= tileScrollingX;
+    }
+}
+
+function createScrollingDecorationTile(trees) {
+    var tileWidth = 123;
+    var tileHeight = 114;
+    var tileScrollingX = 0.8;
+    var tree;
+    for (var i = 0; i < trees.length; i++) {
+        tree = trees.getChildAt(i);
+
+        if (tree.x < 0-tileWidth) {
+            if(Math.random() < 0.01) {
+                tree.x = this.game.world.width + tileWidth;
+                tree.y = (this.game.world.height - 38) - 110;
+                if(Math.random() < 0.5) {
+                    tree.scale.x *= -1;
+                }
+            }
+        }else {
+            //scroll each tile of the group to -tileScrollingX (pixel)
+            tree.x -= tileScrollingX;
         }
     }
 }

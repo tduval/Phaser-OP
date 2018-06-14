@@ -16,6 +16,7 @@ preload.prototype = {
         this.load.image('islands', './assets/images/island-1.png'); // 689x112
         this.load.image('far-grounds', './assets/images/far-grounds.png'); // 616x110
 
+        this.load.image('tree', './assets/images/tree.png'); // 123x114
         this.load.atlas('myTilesetSprite', './assets/images/tileset.png', './assets/images/tileset.json');
         this.load.atlas('myPlayerSprite', './assets/images/luffy_spritesheet.png', './assets/images/luffy_spritesheet.json');
 
