@@ -3,6 +3,9 @@ var level01 = function(game){
 };
 
 level01.prototype = {
+    preload: function(){
+      this.game.time.advancedTiming = true;
+    },
     create: function(){
         // Set the background color to blue
         this.game.stage.backgroundColor = '#74b4ed';
@@ -32,7 +35,6 @@ level01.prototype = {
         this.enemies = this.game.add.group();
 
         createInitialGroundTile(this.grounds);
-        console.log("Grounds[] = ", this.grounds);
 
         //Create all the character animation based on JSON atlas file
         for (var i = 0; i < animList.length; i++) {
@@ -71,18 +73,22 @@ level01.prototype = {
 
 
         this.player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
+
         //  Scroll the background
         bg_clouds.tilePosition.x -= 0.1;
         bg_sea.tilePosition.x -= 0.25;
-        bg_islands.tilePosition.x -= 0.5;
-        this.grounds.x -= 0.6;
-
-        // Sprite debug info
-        this.game.debug.spriteInfo(bg_clouds, 32, 32);
-        //this.game.debug.spriteBounds(bg_clouds);
-        //this.game.debug.scale(10, 15)
+        bg_islands.tilePosition.x -= 0.3;
+        createScrollingGroundTile(this.grounds);
 
     },
+    render: function(){
+        // render FPS on the top-right corner of the screen
+        this.game.debug.text(this.game.time.fps || '--', this.game.world.width-30, 20, "#00ff00", "20px Courier");
+        // Sprite debug info
+        //this.game.debug.spriteInfo(bg_clouds, 32, 32);
+        //this.game.debug.spriteBounds(bg_clouds);
+        //this.game.debug.scale(10, 15)
+    }
 
 }
 
@@ -97,8 +103,23 @@ function createInitialGroundTile(grounds){
     var tileHeight = 38;
     var tilesPerGameWidth = (this.game.world.width / tileWidth) + 1;
     for(var i = 0; i < tilesPerGameWidth; i++) {
-        var ground = this.game.add.sprite(i * tileWidth, this.game.world.height - tileHeight, 'myTilesetSprite', 'rocks_6'); //48x38 (WxH)
+        var ground = this.game.add.sprite(i * (tileWidth-1), this.game.world.height - tileHeight, 'myTilesetSprite', 'rocks_6'); //(tileWidth-1) due to 1pixel offset
         ground.body.immovable = true;
         grounds.add(ground);
+    }
+}
+
+function createScrollingGroundTile(grounds) {
+    var tileWidth = 48;
+    var tileHeight = 38;
+    var tileScrollingX = 0.8;
+    var tilesPerGameWidth = (this.game.world.width / tileWidth) + 1;
+
+    for (var i = 0; i < grounds.length; i++) {
+        var ground = grounds.getChildAt(i);
+        ground.position.x -= tileScrollingX; //scroll each tile of the group to -tileScrollingX (pixel)
+        if (ground.position.x < 0-tileWidth) {
+            ground.position.x = (0-tileWidth) + (tileWidth * tilesPerGameWidth);
+        }
     }
 }
