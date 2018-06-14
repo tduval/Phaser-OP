@@ -9,8 +9,14 @@ boot.prototype = {
 	},
   	create: function(){
         console.log("boot create()");
+
+        // scales the game while keeping the aspect ratio
 		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        // center the game horizontally
 		this.scale.pageAlignHorizontally = true;
+
+        
+
 		this.game.state.start("preload");
 	}
 }

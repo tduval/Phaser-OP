@@ -14,7 +14,6 @@ level01.prototype = {
 
         // Start the Arcade physics system (for movements and collisions)
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
         // Add the physics engine to all game objects
         this.game.world.enableBody = true;
 
@@ -23,39 +22,19 @@ level01.prototype = {
 
         // Create the player in the middle of the game
         this.player = this.game.add.sprite(game.world.width/3, game.world.centerY, 'myPlayerSprite');
-        this.player.scale.x *= -1;
+        this.player.scale.x *= -1; //flipx the sprite symmetrically to make it look on the right
         // Add gravity to make it fall
         this.player.body.gravity.y = 600;
+
         // Create 3 groups that will contain our objects
-        this.walls = this.game.add.group();
+        this.grounds = this.game.add.group();
         this.coins = this.game.add.group();
         this.enemies = this.game.add.group();
 
-        // Design the level. x = wall, o = coin, ! = lava.
-        var level = [
-            '                      ',
-            '                      ',
-            '                      ',
-            '                      ',
-            '                      ',
-            '                      ',
-            'x              x     x',
-            'xxxxxxxxxxxxxxxxxxxxxx',
-        ];
-        // Create the level by going through the array
-        for (var i = 0; i < level.length; i++) {
-            for (var j = 0; j < level[i].length; j++) {
-                // Create a wall and add it to the 'walls' group
-                if (level[i][j] == 'x') {
-                    var wall = this.game.add.sprite(30+20*j, 30+20*i, 'myTilesetSprite', 'rocks_1');
-                    this.walls.add(wall);
-                    wall.body.immovable = true;
-                }
-            }
-        }
+        createInitialGroundTile(this.grounds);
+        console.log("Grounds[] = ", this.grounds);
 
         //Create all the character animation based on JSON atlas file
-
         for (var i = 0; i < animList.length; i++) {
             var ani = this.player.animations.add(animList[i], Phaser.Animation.generateFrameNames(animList[i]+'-',0,99), 12, false); //name, frames, frameRate, loop
         }
@@ -64,8 +43,8 @@ level01.prototype = {
 
     },
     update: function(){
-        // Make the player and the walls collide
-        this.game.physics.arcade.collide(this.player, this.walls);
+        // Make the player and the grounds collide
+        this.game.physics.arcade.collide(this.player, this.grounds);
 
         // Call the 'takeCoin' function when the player takes a coin
         this.game.physics.arcade.overlap(this.player, this.coins, this.takeCoin, null, this);
@@ -96,6 +75,7 @@ level01.prototype = {
         bg_clouds.tilePosition.x -= 0.1;
         bg_sea.tilePosition.x -= 0.25;
         bg_islands.tilePosition.x -= 0.5;
+        this.grounds.x -= 0.6;
 
         // Sprite debug info
         this.game.debug.spriteInfo(bg_clouds, 32, 32);
@@ -109,4 +89,16 @@ level01.prototype = {
 function playerIdleAnim(){
     //console.log("Current Anim : ",this.player.animations.currentAnim);
     this.player.play('run_side', true);
+}
+
+
+function createInitialGroundTile(grounds){
+    var tileWidth = 48;
+    var tileHeight = 38;
+    var tilesPerGameWidth = (this.game.world.width / tileWidth) + 1;
+    for(var i = 0; i < tilesPerGameWidth; i++) {
+        var ground = this.game.add.sprite(i * tileWidth, this.game.world.height - tileHeight, 'myTilesetSprite', 'rocks_6'); //48x38 (WxH)
+        ground.body.immovable = true;
+        grounds.add(ground);
+    }
 }
