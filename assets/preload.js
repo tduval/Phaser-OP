@@ -20,6 +20,10 @@ preload.prototype = {
         this.load.atlas('myTilesetSprite', './assets/images/tileset.png', './assets/images/tileset.json');
         this.load.atlas('myPlayerSprite', './assets/images/luffy_spritesheet.png', './assets/images/luffy_spritesheet.json');
 
+        //load enemies npc
+        this.load.atlas('npcCavermanSprite', './assets/images/npc/caverman.png', './assets/images/npc/npc.json');
+        this.load.atlas('npcCaverman2Sprite', './assets/images/npc/caverman-2.png', './assets/images/npc/npc.json');
+
 	},
   	create: function(){
         console.log("preload create()");
