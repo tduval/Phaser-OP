@@ -24,10 +24,10 @@ level01.prototype = {
         this.cursor = this.game.input.keyboard.createCursorKeys();
 
         // Create the player in the middle of the game
-        this.player = this.game.add.sprite(game.world.width/3, game.world.centerY, 'myPlayerSprite');
-        this.player.scale.x *= -1; //flipx the sprite symmetrically to make it look on the right
+        player = this.game.add.sprite(game.world.width/3, game.world.centerY, 'myPlayerSprite');
+        player.scale.x *= -1; //flipx the sprite symmetrically to make it look on the right
         // Add gravity to make it fall
-        this.player.body.gravity.y = 600;
+        player.body.gravity.y = 600;
 
         // Create 3 groups that will contain our objects
         this.grounds = this.game.add.group();
@@ -39,41 +39,41 @@ level01.prototype = {
 
         //Create all the character animation based on JSON atlas file
         for (var i = 0; i < animList.length; i++) {
-            var ani = this.player.animations.add(animList[i], Phaser.Animation.generateFrameNames(animList[i]+'-',0,99), 12, false); //name, frames, frameRate, loop
+            var ani = player.animations.add(animList[i], Phaser.Animation.generateFrameNames(animList[i]+'-',0,99), 12, false); //name, frames, frameRate, loop
         }
 
-        this.player.play('run_side');
+        player.play('run_side');
 
     },
     update: function(){
         // Make the player and the grounds collide
-        this.game.physics.arcade.collide(this.player, this.grounds);
+        this.game.physics.arcade.collide(player, this.grounds);
 
         // Call the 'takeCoin' function when the player takes a coin
-        this.game.physics.arcade.overlap(this.player, this.coins, this.takeCoin, null, this);
+        this.game.physics.arcade.overlap(player, this.coins, this.takeCoin, null, this);
 
         // Call the 'restart' function when the player touches the enemy
-        this.game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
+        this.game.physics.arcade.overlap(player, this.enemies, this.restart, null, this);
 
         // Move the player when an arrow key is pressed
         if (this.cursor.left.isDown){
-            this.player.body.velocity.x = -200;
+            player.body.velocity.x = -200;
         }
         else if (this.cursor.right.isDown){
-            this.player.body.velocity.x = 200;
-            this.player.play('atk_gatling_side');
+            player.body.velocity.x = 200;
+            player.play('atk_gatling_side');
         }
         else{
-            this.player.body.velocity.x = 0;
+            player.body.velocity.x = 0;
         }
         // Make the player jump if he is touching the ground
-        if (this.cursor.up.isDown && this.player.body.touching.down) {
-            this.player.body.velocity.y = -250;
-            this.player.play('atk_stamp_side');
+        if (this.cursor.up.isDown && player.body.touching.down) {
+            player.body.velocity.y = -250;
+            player.play('atk_stamp_side');
         }
 
 
-        this.player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
+        player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
 
         //  Scroll the background
         bg_clouds.tilePosition.x -= 0.1;
@@ -81,7 +81,7 @@ level01.prototype = {
         bg_islands.tilePosition.x -= 0.3;
         createScrollingDecorationTile(this.trees);
         createScrollingGroundTile(this.grounds);
-        this.player.bringToTop();
+        player.bringToTop();
     },
     render: function(){
         // render FPS on the top-right corner of the screen
@@ -96,7 +96,7 @@ level01.prototype = {
 }
 
 function playerIdleAnim(){
-    this.player.play('run_side', true);
+    player.play('run_side', true);
 }
 
 
