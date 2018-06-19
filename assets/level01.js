@@ -9,7 +9,7 @@ level01.prototype = {
     create: function(){
         // Set the background color to blue
         this.game.stage.backgroundColor = '#74b4ed';
-
+        this.isBackgroundMoving = true;
         //  The scrolling background
         bg_clouds = game.add.tileSprite(0, 40, game.world.width, 50, 'clouds');
         bg_sea = game.add.tileSprite(0, game.world.height-110, game.world.width, 100, 'sea');
@@ -26,6 +26,7 @@ level01.prototype = {
         // Create the player in the middle of the game
         player = this.game.add.sprite(game.world.width/3, game.world.centerY, 'myPlayerSprite');
         player.scale.x *= -1; //flipx the sprite symmetrically to make it look on the right
+        player.body.collideWorldBounds = true;
         // Add gravity to make it fall
         player.body.gravity.y = 600;
 
@@ -38,12 +39,14 @@ level01.prototype = {
         createInitialGroundTile(this.grounds);
 
         //Create all the character animation based on JSON atlas file
-        for (var i = 0; i < animList.length; i++) {
-            var ani = player.animations.add(animList[i], Phaser.Animation.generateFrameNames(animList[i]+'-',0,99), 12, false); //name, frames, frameRate, loop
+        for (var i = 0; i < animPlayerList.length; i++) {
+            var ani = player.animations.add(animPlayerList[i], Phaser.Animation.generateFrameNames(animPlayerList[i]+'-',0,99), 12, false); //name, frames, frameRate, loop
         }
 
         player.play('run_side');
 
+        createEnemies(this.enemies);
+        console.log("Enemies Group = ", this.enemies);
     },
     update: function(){
         // Make the player and the grounds collide
@@ -53,7 +56,9 @@ level01.prototype = {
         this.game.physics.arcade.overlap(player, this.coins, this.takeCoin, null, this);
 
         // Call the 'restart' function when the player touches the enemy
-        this.game.physics.arcade.overlap(player, this.enemies, this.restart, null, this);
+        //this.game.physics.arcade.overlap(player, this.enemies, hitEnemy(), null, this);
+        this.game.physics.arcade.collide(player, this.enemies.children, hitEnemy);
+
 
         // Move the player when an arrow key is pressed
         if (this.cursor.left.isDown){
@@ -68,20 +73,36 @@ level01.prototype = {
         }
         // Make the player jump if he is touching the ground
         if (this.cursor.up.isDown && player.body.touching.down) {
-            player.body.velocity.y = -250;
+            player.body.velocity.y = -300;
             player.play('atk_stamp_side');
         }
 
 
-        player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
+        //player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
 
         //  Scroll the background
-        bg_clouds.tilePosition.x -= 0.1;
-        bg_sea.tilePosition.x -= 0.25;
-        bg_islands.tilePosition.x -= 0.3;
-        createScrollingDecorationTile(this.trees);
-        createScrollingGroundTile(this.grounds);
-        player.bringToTop();
+        if(this.isBackgroundMoving){
+            console.log(" scroll background... ",this.isBackgroundMoving);
+            bg_clouds.tilePosition.x -= 0.1;
+            bg_sea.tilePosition.x -= 0.25;
+            bg_islands.tilePosition.x -= 0.3;
+            createScrollingDecorationTile(this.trees);
+            createScrollingGroundTile(this.grounds);
+            player.bringToTop();
+            player.play('run_side', true);
+        }else {
+            //player.play('idle_front');
+        }
+
+        for (var j = 0; j < this.enemies.length; j++) {
+            var enemy = this.enemies.getChildAt(j);
+            if (enemy.x <= player.x + 150) {
+                this.isBackgroundMoving = false;
+
+            }else {
+                enemy.body.velocity.x = -100;
+            }
+        }
     },
     render: function(){
         // render FPS on the top-right corner of the screen
@@ -89,14 +110,11 @@ level01.prototype = {
 
         // Sprite debug info
         //this.game.debug.spriteInfo(bg_clouds, 32, 32);
-        //this.game.debug.spriteBounds(bg_clouds);
+        this.game.debug.spriteBounds(player, 'blue', false);
+        this.game.debug.spriteBounds(this.enemies, 'red', false);
         //this.game.debug.scale(10, 15)
     }
 
-}
-
-function playerIdleAnim(){
-    player.play('run_side', true);
 }
 
 
@@ -117,6 +135,31 @@ function createInitialDecorationTile(trees, total){
         trees.add(tree);
     }
 }
+
+function createEnemies(enemies) {
+    caverman = this.game.add.sprite(game.world.width-10, game.world.centerY, 'npcCavermanSprite');
+    //caverman2 = this.game.add.sprite(game.world.width-30, game.world.centerY, 'npcCaverman2Sprite');
+    caverman.scale.x *= -1; //flipx the sprite symmetrically to make it look on the left
+    //caverman2.scale.x *= -1; //flipx the sprite symmetrically to make it look on the left
+
+    enemies.add(caverman);
+    //enemies.add(caverman2);
+    //enemies.body.gravity.y = 600;
+
+    //Create all the character animation based on JSON atlas file
+    for (var j = 0; j < enemies.length; j++) {
+        var enemy = enemies.getChildAt(j);
+        for (var i = 0; i < animEnemyList.length; i++) {
+            var ani = enemy.animations.add(animEnemyList[i], Phaser.Animation.generateFrameNames(animEnemyList[i],0,99), 12, true); //name, frames, frameRate, loop
+        }
+        enemy.play('run', true);
+        //this.game.physics.arcade.moveToObject(enemy, player);
+        enemy.body.collideWorldBounds = true;
+        enemy.body.bounce.set(0.3);
+        //enemy.body.mass = -100;
+    }
+}
+
 
 function createScrollingGroundTile(grounds) {
     var tileWidth = 48;
@@ -158,4 +201,12 @@ function createScrollingDecorationTile(trees) {
             tree.x -= tileScrollingX;
         }
     }
+}
+
+function hitEnemy() {
+    this.enem
+}
+
+function moveEnemies(enemies) {
+
 }
