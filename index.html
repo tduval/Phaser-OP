@@ -48,23 +48,23 @@
                             'shout_win_side',
                             'jump_win_side'
                             ];
-            // var domBtn = document.getElementById("divButton");
-            // console.log("Game variable = ", game);
-            // for (var i = 0; i < animList.length; i++) {
-            //     var elementBtn = document.createElement("button");
-            //     elementBtn.type = "button";
-            //     elementBtn.value = animList[i];
-            //     elementBtn.innerHTML = animList[i];
-            //     elementBtn.className="btn btn-info btn-block";
-            //     elementBtn.onclick = function() { changeAnim(this.value); };
-            //     domBtn.appendChild(elementBtn);
-            // }
-            //
-            // function changeAnim (a) {
-            //     console.log("Player  = ", player);
-            //     player.play(a);
-            //     console.log("Click : ", a);
-            // }
+            var domBtn = document.getElementById("divButton");
+            console.log("Game variable = ", game);
+            for (var i = 0; i < animList.length; i++) {
+                var elementBtn = document.createElement("button");
+                elementBtn.type = "button";
+                elementBtn.value = animList[i];
+                elementBtn.innerHTML = animList[i];
+                elementBtn.className="btn btn-info btn-block";
+                elementBtn.onclick = function() { changeAnim(this.value); };
+                domBtn.appendChild(elementBtn);
+            }
+
+            function changeAnim (a) {
+                console.log("Player  = ", player);
+                this.player.play(a);
+                console.log("Click : ", a);
+            }
         </script>
 
     </body>
