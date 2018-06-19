@@ -33,37 +33,20 @@
 
         <script src="assets/main.js"></script>
         <script type="text/javascript">
-            var animList = ['idle_front',
-                            'run_side',
-                            'jump_front',
-                            'crouch_side',
-                            'atk_punch_side',
-                            'atk_kick_side',
-                            'atk_pistol_side',
-                            'atk_gatling_side',
-                            'run_atk_side',
-                            'atk_bazooka_side',
-                            'atk_stamp_side',
-                            'atk_head_side',
-                            'shout_win_side',
-                            'jump_win_side'
-                            ];
+
             var domBtn = document.getElementById("divButton");
-            console.log("Game variable = ", game);
-            for (var i = 0; i < animList.length; i++) {
+            for (var i = 0; i < animPlayerList.length; i++) {
                 var elementBtn = document.createElement("button");
                 elementBtn.type = "button";
-                elementBtn.value = animList[i];
-                elementBtn.innerHTML = animList[i];
+                elementBtn.value = animPlayerList[i];
+                elementBtn.innerHTML = animPlayerList[i];
                 elementBtn.className="btn btn-info btn-block";
                 elementBtn.onclick = function() { changeAnim(this.value); };
                 domBtn.appendChild(elementBtn);
             }
 
             function changeAnim (a) {
-                console.log("Player  = ", player);
                 this.player.play(a);
-                console.log("Click : ", a);
             }
         </script>
 

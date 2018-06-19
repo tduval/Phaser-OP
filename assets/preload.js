@@ -4,7 +4,7 @@ var preload = function(game){
 
 preload.prototype = {
 	preload: function(){
-        console.log("preload preload()");
+        //console.log("preload preload()");
         var loadingBar = this.add.sprite(game.width/2, game.height/2,"loading");
         loadingBar.anchor.setTo(0.5,0.5);
         this.load.setPreloadSprite(loadingBar);
@@ -26,7 +26,7 @@ preload.prototype = {
 
 	},
   	create: function(){
-        console.log("preload create()");
+        //console.log("preload create()");
 		this.game.state.start("level01");
 	}
 }
