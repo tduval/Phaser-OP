@@ -22,7 +22,7 @@ preload.prototype = {
 
         //load enemies npc
         this.load.atlas('npcCavermanSprite', './assets/images/npc/caverman.png', './assets/images/npc/npc.json');
-        this.load.atlas('npcCaverman2Sprite', './assets/images/npc/caverman-2.png', './assets/images/npc/npc.json');
+        //this.load.atlas('npcCaverman2Sprite', './assets/images/npc/caverman-2.png', './assets/images/npc/npc.json');
 
 
 	},

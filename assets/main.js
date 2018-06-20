@@ -7,7 +7,7 @@ var config = {
     physicsConfig: { arcade: true },
 };
 
-var player;
+var player, continueTravel;
 
 var game = new Phaser.Game(config);
 console.log("Init Game Config... ", game);
