@@ -11,8 +11,12 @@ level01.prototype = {
         this.game.stage.backgroundColor = '#74b4ed';
 
         //  The scrolling background
-        this.isBackgroundMoving = true; //set to true to engage the update loop, set to false to stop the update loop for moving bg and player
+        //set to true to engage the update loop, set to false to stop the update loop for moving bg and player
         continueTravel = true; //need to implement this, still using the keyboard
+
+        isEnemySpawnAllowed = true;
+        time_til_spawn = Math.random()*3000 + 2000;﻿  //Random time between 2 a﻿nd 5 seconds.
+        last_spawn_time = game.time.time;
 
         bg_clouds = game.add.tileSprite(0, 40, game.world.width, 50, 'clouds');
         bg_sea = game.add.tileSprite(0, game.world.height-110, game.world.width, 100, 'sea');
@@ -49,8 +53,8 @@ level01.prototype = {
 
         player.play('run_side');
 
-        createEnemies(this.enemies);
-        console.log("Enemies Group = ", this.enemies);
+        // createEnemies(this.enemies);
+        // console.log("Enemies Group = ", this.enemies);
     },
     update: function(){
         // Make the player and the grounds collide
@@ -86,18 +90,27 @@ level01.prototype = {
             continueTravel = true;
         }
 
-        for (var j = 0; j < this.enemies.length; j++) {
-            var enemy = this.enemies.getChildAt(j);
+
+        current_time = game.time.time;
+        if((current_time - last_spawn_time > time_til_spawn) && (isEnemySpawnAllowed)) {
+          time_til_spawn = Math.random()*3000 + 2000;
+          last_spawn_time = current_time;
+          createEnemies('npcCavermanSprite');
+          isEnemySpawnAllowed = false;
+        }﻿
+
+        if (enemy != null) {
             if (enemy.x <= player.x +150) {
-                console.log("enemy stop");
+                //console.log("enemy stop");
                 continueTravel = false;
                 enemy.body.velocity.x = 0;
-                enemy.animations.stop(null, true);;
+                enemy.animations.stop(null, true);
             }else {
-                console.log("enemy run");
+                //console.log("enemy run");
                 enemy.body.velocity.x = -100;
             }
         }
+
 
         player.bringToTop();
     },
@@ -107,9 +120,8 @@ level01.prototype = {
 
         // Sprite debug info
         this.game.debug.spriteInfo(player, 1, 10);
-        this.game.debug.spriteCoords(this.enemies.getFirstExists(), 1, 84, 'red');
+        //this.game.debug.spriteCoords(enemy, 1, 84, 'red');
         this.game.debug.spriteBounds(player, 'blue', false);
-        this.game.debug.spriteBounds(this.enemies, 'red', false);
         //this.game.debug.text('Anchor X: ' + player.anchor.x.toFixed(1) + ' Y: ' + player.anchor.y.toFixed(1), 32, 32);
         //this.game.debug.text('player X: ' + player.x + ' Y: ' + player.y, 32, 64);
 
@@ -144,27 +156,20 @@ function createInitialDecorationTile(trees, total){
     }
 }
 
-function createEnemies(enemies) {
-    caverman = this.game.add.sprite(game.world.width, game.world.centerY, 'npcCavermanSprite');
-    //caverman2 = this.game.add.sprite(game.world.width-30, game.world.centerY, 'npcCaverman2Sprite');
-    caverman.scale.x *= -1; //flipx the sprite symmetrically to make it look on the left
-    //caverman2.scale.x *= -1; //flipx the sprite symmetrically to make it look on the left
-
-    enemies.add(caverman);
-    //enemies.add(caverman2);
+function createEnemies(enemyType) {
+    enemy = this.game.add.sprite(game.world.width, game.world.centerY, enemyType);
+    enemy.scale.x *= -1; //flipx the sprite symmetrically to make it look on the left
     //enemies.body.gravity.y = 600;
 
     //Create all the character animation based on JSON atlas file
-    for (var j = 0; j < enemies.length; j++) {
-        var enemy = enemies.getChildAt(j);
-        for (var i = 0; i < animEnemyList.length; i++) {
-            var ani = enemy.animations.add(animEnemyList[i], Phaser.Animation.generateFrameNames(animEnemyList[i],0,99), 12, true); //name, frames, frameRate, loop
-        }
-        enemy.play('run', true);
-        //this.game.physics.arcade.moveToObject(enemy, player);
-        enemy.body.collideWorldBounds = true;
-        enemy.body.bounce.set(0.3);
+    for (var i = 0; i < animEnemyList.length; i++) {
+        var ani = enemy.animations.add(animEnemyList[i], Phaser.Animation.generateFrameNames(animEnemyList[i],0,99), 12, true); //name, frames, frameRate, loop
     }
+    enemy.play('run', true);
+    //this.game.physics.arcade.moveToObject(enemy, player);
+    enemy.body.collideWorldBounds = true;
+    enemy.body.bounce.set(0.3);
+    console.log("Enemy Spawned!");
 }
 
 
