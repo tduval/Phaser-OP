@@ -34,9 +34,14 @@ level01.prototype = {
         player = this.game.add.sprite(game.world.width/3, game.world.centerY, 'myPlayerSprite');
         player.scale.x *= -1; //flipx the sprite symmetrically to make it look on the right
         player.body.collideWorldBounds = true;
+        this.game.physics.arcade.enable(player);
         // Add gravity to make it fall
         player.body.gravity.y = 600;
         player.anchor.x = 1;
+
+        //  Also enable sprite for drag
+        player.inputEnabled = true;
+        player.input.enableDrag();
 
         // Create 3 groups that will contain our objects
         this.grounds = this.game.add.group();
@@ -60,29 +65,22 @@ level01.prototype = {
         // Make the player and the grounds collide
         this.game.physics.arcade.collide(player, this.grounds);
 
-        // Call the 'takeCoin' function when the player takes a coin
-        this.game.physics.arcade.overlap(player, this.coins, this.takeCoin, null, this);
-
-        // Call the 'restart' function when the player touches the enemy
-        //this.game.physics.arcade.overlap(player, this.enemies, hitEnemy(), null, this);
-        this.game.physics.arcade.collide(player, this.enemies.children, hitEnemy);
+        // Call the 'collide' function when the player touches the enemy
+        this.game.physics.arcade.collide(player, enemy, collideEnemy, null, this);
 
         if (continueTravel) {
             console.log("%ccontinue travel... TRUE", "background:green");
-            //player.body.velocity.x = 200;
             bg_clouds.tilePosition.x -= 0.1;
             bg_sea.tilePosition.x -= 0.25;
             bg_islands.tilePosition.x -= 0.3;
             createScrollingDecorationTile(this.trees);
             createScrollingGroundTile(this.grounds);
-
-            player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
         } else {
             console.log("%ccontinue travel... FALSE", "background:red");
             player.body.velocity.x = 0;
-            player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
         }
 
+        player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
 
         if (this.cursor.left.isDown){
             continueTravel = false;
@@ -99,19 +97,6 @@ level01.prototype = {
           isEnemySpawnAllowed = false;
         }﻿
 
-        if (enemy != null) {
-            if (enemy.x <= player.x +150) {
-                //console.log("enemy stop");
-                continueTravel = false;
-                enemy.body.velocity.x = 0;
-                enemy.animations.stop(null, true);
-            }else {
-                //console.log("enemy run");
-                enemy.body.velocity.x = -100;
-            }
-        }
-
-
         player.bringToTop();
     },
     render: function(){
@@ -119,11 +104,15 @@ level01.prototype = {
         this.game.debug.text(this.game.time.fps || '--', this.game.world.width-30, 20, "#00ff00", "20px Courier");
 
         // Sprite debug info
-        this.game.debug.spriteInfo(player, 1, 10);
+        this.game.debug.body(player);
         //this.game.debug.spriteCoords(enemy, 1, 84, 'red');
         this.game.debug.spriteBounds(player, 'blue', false);
+        if(enemy != null){this.game.debug.spriteBounds(enemy, 'red', false);this.game.debug.body(enemy);}
         //this.game.debug.text('Anchor X: ' + player.anchor.x.toFixed(1) + ' Y: ' + player.anchor.y.toFixed(1), 32, 32);
-        //this.game.debug.text('player X: ' + player.x + ' Y: ' + player.y, 32, 64);
+        this.game.debug.text('player X: ' + Phaser.Math.roundTo(player.x, 0), 1, 11);
+        if(enemy != null){this.game.debug.text('Enemy X: ' + Phaser.Math.roundTo(enemy.x, 0), 1, 22);}
+
+        this.game.debug.text(Phaser.Math.roundTo(game.input.mousePointer.x, 0) + '/' + Phaser.Math.roundTo(game.input.mousePointer.y, 0), game.world.centerX, 20, "black", "20px Courier");
 
     }
 
@@ -159,16 +148,18 @@ function createInitialDecorationTile(trees, total){
 function createEnemies(enemyType) {
     enemy = this.game.add.sprite(game.world.width, game.world.centerY, enemyType);
     enemy.scale.x *= -1; //flipx the sprite symmetrically to make it look on the left
-    //enemies.body.gravity.y = 600;
 
     //Create all the character animation based on JSON atlas file
     for (var i = 0; i < animEnemyList.length; i++) {
-        var ani = enemy.animations.add(animEnemyList[i], Phaser.Animation.generateFrameNames(animEnemyList[i],0,99), 12, true); //name, frames, frameRate, loop
+        var ani = enemy.animations.add(animEnemyList[i], Phaser.Animation.generateFrameNames(animEnemyList[i],0,99), 12, false); //name, frames, frameRate, loop
     }
-    enemy.play('run', true);
-    //this.game.physics.arcade.moveToObject(enemy, player);
-    enemy.body.collideWorldBounds = true;
-    enemy.body.bounce.set(0.3);
+    enemy.play('run', 12, true);
+    this.game.physics.arcade.enable(enemy);
+    enemy.anchor.x = 1;
+    enemy.body.moveTo(2000, 290, Phaser.ANGLE_LEFT);
+    enemy.body.onMoveComplete.add(enemyReadyPhase, this);
+    //enemy.body.collideWorldBounds = true;
+    //enemy.body.bounce.set(0.7);
     console.log("Enemy Spawned!");
 }
 
@@ -215,8 +206,15 @@ function createScrollingDecorationTile(trees) {
     }
 }
 
-function hitEnemy() {
-    this.enem
+function enemyReadyPhase() {
+    continueTravel = false;
+    enemy.animations.stop(null, true);
+    console.log("Enemy Ready to fight !");
+}
+
+function collideEnemy() {
+    enemy.play('hit');
+    console.log("Collision");
 }
 
 function moveEnemies(enemies) {
