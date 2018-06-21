@@ -77,7 +77,6 @@ level01.prototype = {
             createScrollingGroundTile(this.grounds);
         } else {
             console.log("%ccontinue travel... FALSE", "background:red");
-            player.body.velocity.x = 0;
         }
 
         player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
@@ -88,7 +87,7 @@ level01.prototype = {
             continueTravel = true;
         }
 
-
+        // enemy spawn timer logic
         current_time = game.time.time;
         if((current_time - last_spawn_time > time_til_spawn) && (isEnemySpawnAllowed)) {
           time_til_spawn = Math.random()*3000 + 2000;
@@ -158,8 +157,6 @@ function createEnemies(enemyType) {
     enemy.anchor.x = 1;
     enemy.body.moveTo(2000, 290, Phaser.ANGLE_LEFT);
     enemy.body.onMoveComplete.add(enemyReadyPhase, this);
-    //enemy.body.collideWorldBounds = true;
-    //enemy.body.bounce.set(0.7);
     console.log("Enemy Spawned!");
 }
 
