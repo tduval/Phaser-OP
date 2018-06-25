@@ -64,9 +64,10 @@ level01.prototype = {
     update: function(){
         // Make the player and the grounds collide
         this.game.physics.arcade.collide(player, this.grounds);
+        this.game.physics.arcade.collide(enemy, this.grounds);
 
         // Call the 'collide' function when the player touches the enemy
-        this.game.physics.arcade.collide(player, enemy, collideEnemy, null, this);
+        //this.game.physics.arcade.collide(player, enemy, attackEnemy, null, this);
 
         if (continueTravel) {
             console.log("%ccontinue travel... TRUE", "background:green");
@@ -77,6 +78,12 @@ level01.prototype = {
             createScrollingGroundTile(this.grounds);
         } else {
             console.log("%ccontinue travel... FALSE", "background:red");
+            attackEnemy();
+            if (enemyHP <= 0) {
+                enemy.kill();
+                continueTravel = true;
+                isEnemySpawnAllowed = true;
+            }
         }
 
         player.animations.currentAnim.onComplete.add(playerIdleAnim, this);
@@ -92,7 +99,7 @@ level01.prototype = {
         if((current_time - last_spawn_time > time_til_spawn) && (isEnemySpawnAllowed)) {
           time_til_spawn = Math.random()*3000 + 2000;
           last_spawn_time = current_time;
-          createEnemies('npcCavermanSprite');
+          createEnemies('pirate');
           isEnemySpawnAllowed = false;
         }﻿
 
@@ -108,8 +115,8 @@ level01.prototype = {
         this.game.debug.spriteBounds(player, 'blue', false);
         if(enemy != null){this.game.debug.spriteBounds(enemy, 'red', false);this.game.debug.body(enemy);}
         //this.game.debug.text('Anchor X: ' + player.anchor.x.toFixed(1) + ' Y: ' + player.anchor.y.toFixed(1), 32, 32);
-        this.game.debug.text('player X: ' + Phaser.Math.roundTo(player.x, 0), 1, 11);
-        if(enemy != null){this.game.debug.text('Enemy X: ' + Phaser.Math.roundTo(enemy.x, 0), 1, 22);}
+        this.game.debug.text('player X: ' + Phaser.Math.roundTo(player.x, 0) + ' / Y: ' + Phaser.Math.roundTo(player.y, 0), 1, 11);
+        if(enemy != null){this.game.debug.text('Enemy X: ' + Phaser.Math.roundTo(enemy.x, 0) + ' / Y: ' + Phaser.Math.roundTo(enemy.y, 0), 1, 22);}
 
         this.game.debug.text(Phaser.Math.roundTo(game.input.mousePointer.x, 0) + '/' + Phaser.Math.roundTo(game.input.mousePointer.y, 0), game.world.centerX, 20, "black", "20px Courier");
 
@@ -121,6 +128,8 @@ function playerIdleAnim(){
     if(continueTravel){
         player.play('run_side', true);
     }else{
+        enemyHP -= 30;
+        console.log(enemyHP);
         player.play('idle_front', true);
     }
 
@@ -145,19 +154,23 @@ function createInitialDecorationTile(trees, total){
 }
 
 function createEnemies(enemyType) {
-    enemy = this.game.add.sprite(game.world.width, game.world.centerY, enemyType);
-    enemy.scale.x *= -1; //flipx the sprite symmetrically to make it look on the left
-
+    enemy = this.game.add.sprite(game.world.width, player.y, enemyType);
+    enemyHP = 100;
     //Create all the character animation based on JSON atlas file
     for (var i = 0; i < animEnemyList.length; i++) {
-        var ani = enemy.animations.add(animEnemyList[i], Phaser.Animation.generateFrameNames(animEnemyList[i],0,99), 12, false); //name, frames, frameRate, loop
+        var ani = enemy.animations.add(animEnemyList[i], Phaser.Animation.generateFrameNames(animEnemyList[i]+'-',1,99), 12, false); //name, frames, frameRate, loop
     }
     enemy.play('run', 12, true);
     this.game.physics.arcade.enable(enemy);
     enemy.anchor.x = 1;
+    // Add gravity to make it fall
+    //enemy.body.gravity.y = 100;
     enemy.body.moveTo(2000, 290, Phaser.ANGLE_LEFT);
     enemy.body.onMoveComplete.add(enemyReadyPhase, this);
     console.log("Enemy Spawned!");
+    //  Also enable sprite for drag
+    enemy.inputEnabled = true;
+    enemy.input.enableDrag();
 }
 
 
@@ -205,13 +218,14 @@ function createScrollingDecorationTile(trees) {
 
 function enemyReadyPhase() {
     continueTravel = false;
-    enemy.animations.stop(null, true);
+    enemy.play('idle', true);
     console.log("Enemy Ready to fight !");
 }
 
-function collideEnemy() {
-    enemy.play('hit');
-    console.log("Collision");
+function attackEnemy() {
+    enemy.play('attack', true);
+    player.play('atk_punch_side', true);
+    console.log("Attack Phase !");
 }
 
 function moveEnemies(enemies) {

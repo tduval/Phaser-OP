@@ -36,9 +36,9 @@ var animPlayerList = ['idle_front',
                     'jump_win_side'
                     ];
 
-var animEnemyList = ['run',
-                    'roll',
-                    'atk',
-                    'hit',
-                    'death',
+var animEnemyList = ['idle',
+                    'run',
+                    'attack',
+                    'die',
                     ];
+ var enemyHP = 100;
