@@ -99,7 +99,7 @@ level01.prototype = {
         if((current_time - last_spawn_time > time_til_spawn) && (isEnemySpawnAllowed)) {
           time_til_spawn = Math.random()*3000 + 2000;
           last_spawn_time = current_time;
-          createEnemies('enemy-pirate');
+          createEnemies(enemyRegularList[Math.floor(Math.random()*enemyRegularList.length)]);
           isEnemySpawnAllowed = false;
         }﻿
 
@@ -155,6 +155,7 @@ function createInitialDecorationTile(trees, total){
 
 function createEnemies(enemyType) {
     enemy = this.game.add.sprite(game.world.width, player.y, enemyType);
+    enemy.y = (player.y + player.height) - enemy.height;
     enemyHP = 100;
     //Create all the character animation based on JSON atlas file
     for (var i = 0; i < animEnemyList.length; i++) {

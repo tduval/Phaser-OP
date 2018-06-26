@@ -41,4 +41,8 @@ var animEnemyList = ['idle',
                     'attack',
                     'die',
                     ];
- var enemyHP = 100;
+
+var enemyRegularList = ['enemy-pirate',
+                        'enemy-navy'
+                        ];
+var enemyHP = 100;
