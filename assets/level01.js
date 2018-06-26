@@ -64,7 +64,7 @@ level01.prototype = {
     update: function(){
         // Make the player and the grounds collide
         this.game.physics.arcade.collide(player, this.grounds);
-        this.game.physics.arcade.collide(enemy, this.grounds);
+        //this.game.physics.arcade.collide(enemy, this.grounds);
 
         // Call the 'collide' function when the player touches the enemy
         //this.game.physics.arcade.collide(player, enemy, attackEnemy, null, this);
@@ -80,7 +80,8 @@ level01.prototype = {
             console.log("%ccontinue travel... FALSE", "background:red");
             attackEnemy();
             if (enemyHP <= 0) {
-                enemy.kill();
+                enemy.play('die', 6, false, true);
+                enemy.y = (player.y + player.height);
                 continueTravel = true;
                 isEnemySpawnAllowed = true;
             }
@@ -227,8 +228,4 @@ function attackEnemy() {
     enemy.play('attack', true);
     player.play('atk_punch_side', true);
     console.log("Attack Phase !");
-}
-
-function moveEnemies(enemies) {
-
 }
