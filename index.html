@@ -21,7 +21,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3 text-center" id="divControl"><h4>Control Section</h4><div id="divButton"></div></div>
-                <div class="col-sm-9 text-center" id="divPhaser"><h4 style="color: purple">Phaser.IO</h4><div id="divCanvasWrapper"></div></div>
+                <div class="col-sm-9 text-center" id="divPhaser"><h4 style="color: purple">Phaser.IO    <button type="button" class="btn btn-outline-dark btn-sm" onclick="debugSwitch()">Debug</button></h4><div id="divCanvasWrapper"></div></div>
             </div>
         </div>
 
@@ -47,6 +47,11 @@
 
             function changeAnim (a) {
                 this.player.play(a);
+            }
+
+            function debugSwitch() {
+                debugMode = !debugMode;
+                console.log("debug : ", debugMode);
             }
         </script>
 

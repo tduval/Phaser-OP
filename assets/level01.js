@@ -107,20 +107,21 @@ level01.prototype = {
         player.bringToTop();
     },
     render: function(){
-        // render FPS on the top-right corner of the screen
-        this.game.debug.text(this.game.time.fps || '--', this.game.world.width-30, 20, "#00ff00", "20px Courier");
+        if (debugMode) {
+            // render FPS on the top-right corner of the screen
+            this.game.debug.text(this.game.time.fps || '--', this.game.world.width-30, 20, "#00ff00", "20px Courier");
 
-        // Sprite debug info
-        this.game.debug.body(player);this.game.debug.spriteBounds(player, 'blue', false);
-        if(enemy != null){this.game.debug.spriteBounds(enemy, 'red', false);this.game.debug.body(enemy);}
+            // Sprite debug info
+            this.game.debug.body(player);this.game.debug.spriteBounds(player, 'blue', false);
+            if(enemy != null){this.game.debug.spriteBounds(enemy, 'red', false);this.game.debug.body(enemy);}
 
-        // Display Coordinates of both Player and Enemy in the top-left corner
-        this.game.debug.text('player X: ' + Phaser.Math.roundTo(player.x, 0) + ' / Y: ' + Phaser.Math.roundTo(player.y, 0), 1, 11);
-        if(enemy != null){this.game.debug.text('Enemy X: ' + Phaser.Math.roundTo(enemy.x, 0) + ' / Y: ' + Phaser.Math.roundTo(enemy.y, 0), 1, 22);}
+            // Display Coordinates of both Player and Enemy in the top-left corner
+            this.game.debug.text('player X: ' + Phaser.Math.roundTo(player.x, 0) + ' / Y: ' + Phaser.Math.roundTo(player.y, 0), 1, 11);
+            if(enemy != null){this.game.debug.text('Enemy X: ' + Phaser.Math.roundTo(enemy.x, 0) + ' / Y: ' + Phaser.Math.roundTo(enemy.y, 0), 1, 22);}
 
-        // Display Mouse pointer position
-        this.game.debug.text('x'+Phaser.Math.roundTo(game.input.mousePointer.x, 0) + '/y' + Phaser.Math.roundTo(game.input.mousePointer.y, 0), game.world.centerX, 20, "black", "15px Courier");
-
+            // Display Mouse pointer position
+            this.game.debug.text('x'+Phaser.Math.roundTo(game.input.mousePointer.x, 0) + '/y' + Phaser.Math.roundTo(game.input.mousePointer.y, 0), game.world.centerX, 20, "black", "15px Courier");
+        }
     }
 
 }
