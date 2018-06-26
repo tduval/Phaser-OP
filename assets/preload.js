@@ -21,9 +21,8 @@ preload.prototype = {
         this.load.atlas('myPlayerSprite', './assets/images/luffy_spritesheet.png', './assets/images/luffy_spritesheet.json');
 
         //load enemies npc
-        this.load.atlas('pirate', './assets/images/npc/Pirate.png', './assets/images/npc/Pirate.json');
-        //this.load.atlas('npcCaverman2Sprite', './assets/images/npc/caverman-2.png', './assets/images/npc/npc.json');
-
+        this.load.atlas('enemy-pirate', './assets/images/npc/enemy-pirate.png', './assets/images/npc/enemy-pirate.json');
+        this.load.atlas('enemy-navy', './assets/images/npc/enemy-navy.png', './assets/images/npc/enemy-navy.json');
 
 	},
   	create: function(){
