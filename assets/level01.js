@@ -46,8 +46,6 @@ level01.prototype = {
         // Create 3 groups that will contain our objects
         this.grounds = this.game.add.group();
         this.trees = this.game.add.group();
-        this.coins = this.game.add.group();
-        this.enemies = this.game.add.group();
         createInitialDecorationTile(this.trees, 10) //create 20 trees
         createInitialGroundTile(this.grounds);
 
@@ -58,8 +56,6 @@ level01.prototype = {
 
         player.play('run_side');
 
-        // createEnemies(this.enemies);
-        // console.log("Enemies Group = ", this.enemies);
     },
     update: function(){
         // Make the player and the grounds collide
@@ -104,7 +100,7 @@ level01.prototype = {
         if((current_time - last_spawn_time > time_til_spawn) && (isEnemySpawnAllowed)) {
           time_til_spawn = Math.random()*3000 + 2000;
           last_spawn_time = current_time;
-          createEnemies(enemyRegularList[Math.floor(Math.random()*enemyRegularList.length)]);
+          createEnemies(enemyCharacter[Math.floor(Math.random()*enemyRegularList.length)].spriteName);
           isEnemySpawnAllowed = false;
         }﻿
 
