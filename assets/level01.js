@@ -15,6 +15,7 @@ level01.prototype = {
         continueTravel = true; //need to implement this, still using the keyboard
 
         isEnemySpawnAllowed = true;
+        enemyChoose = null;
         time_til_spawn = Math.random()*3000 + 2000;﻿  //Random time between 2 a﻿nd 5 seconds.
         last_spawn_time = game.time.time;
 
@@ -82,6 +83,7 @@ level01.prototype = {
             if (enemyHP <= 0) {
                 enemy.play('die', 6, false, true);
                 enemy.y = (player.y + player.height);
+                store.commit('incrementBounty', enemyChoose.bountyEarn)
                 continueTravel = true;
                 isEnemySpawnAllowed = true;
             }
@@ -100,7 +102,9 @@ level01.prototype = {
         if((current_time - last_spawn_time > time_til_spawn) && (isEnemySpawnAllowed)) {
           time_til_spawn = Math.random()*3000 + 2000;
           last_spawn_time = current_time;
-          createEnemies(enemyCharacter[Math.floor(Math.random()*enemyRegularList.length)].spriteName);
+          var enemyUnlockList = store.state.enemyList.filter(e => e.unlock <= store.state.bounty);
+          enemyChoose = enemyUnlockList[Math.floor(Math.random()*enemyUnlockList.length)];
+          createEnemies(enemyChoose.spriteName);
           isEnemySpawnAllowed = false;
         }﻿
 

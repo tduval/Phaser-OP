@@ -111,7 +111,7 @@ const rankList= [
 const store = new Vuex.Store({
   state: {
     myPlayer: playerCharacter,
-    myEnemies: enemyCharacter,
+    enemyList: enemyCharacter,
     rankList: rankList,
     bounty: 0,
   },
