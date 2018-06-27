@@ -29,22 +29,96 @@ const enemyCharacter = [
     },
 ]
 
+const rankList= [
+    {
+        id: 0,
+        name: 'Chore Boy',
+        bounty: '0',
+    },
+    {
+        id: 1,
+        name: 'Recruit',
+        bounty: '50000',
+    },
+    {
+        id: 2,
+        name: 'Apprentice',
+        bounty: '300000',
+    },
+    {
+        id: 3,
+        name: 'First Class',
+        bounty: '1000000',
+    },
+    {
+        id: 4,
+        name: 'Chief Petty Officer',
+        bounty: '2000000',
+    },
+    {
+        id: 5,
+        name: 'Warrant Officer',
+        bounty: '5000000',
+    },
+    {
+        id: 6,
+        name: 'Lieutenant',
+        bounty: '7000000',
+    },
+    {
+        id: 7,
+        name: 'Commander',
+        bounty: '15000000',
+    },
+    {
+        id: 8,
+        name: 'Captain',
+        bounty: '30000000',
+    },
+    {
+        id: 9,
+        name: 'Commodore',
+        bounty: '70000000',
+    },
+    {
+        id: 10,
+        name: 'Rear-Admiral',
+        bounty: '150000000',
+    },
+    {
+        id: 11,
+        name: 'Vice-Admiral',
+        bounty: '400000000',
+    },
+    {
+        id: 12,
+        name: 'Admiral',
+        bounty: '7000000000',
+    },
+    {
+        id: 13,
+        name: 'Fleet Admiral',
+        bounty: '1000000000',
+    },
+    {
+        id: 14,
+        name: 'Gorosei',
+        bounty: '3000000000',
+    },
+
+]
+
 const store = new Vuex.Store({
   state: {
     myPlayer: playerCharacter,
     myEnemies: enemyCharacter,
-    rank: 0,
+    rankList: rankList,
     bounty: 0,
   },
   mutations: {
         incrementBounty (state, amount){
             state.bounty += amount
             console.log("Increment Bounty by : ", amount)
-        },
-        incrementRank (state){
-            //todo
-            // change rank of the player based on the different bounty level
-            console.log("Increment Rank to : ", state.rank)
         },
         // buyVehicle (state, vehicleID){
         //     var vehicle = state.vehicles.find(vehicle => vehicle.id === vehicleID)
