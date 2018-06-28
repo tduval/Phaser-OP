@@ -56,7 +56,7 @@ const playerCharacter =   {
         ],
     }
 
-const enemyCharacter = [
+const enemies = [
     {
         id: 0,
         name: 'Pirate',
@@ -79,7 +79,7 @@ const enemyCharacter = [
     },
 ]
 
-const rankList= [
+const ranks= [
     {
         id: 0,
         name: 'Chore Boy',
@@ -160,9 +160,9 @@ const rankList= [
 
 const store = new Vuex.Store({
     state: {
-        myPlayer: playerCharacter,
-        enemyList: enemyCharacter,
-        rankList: rankList,
+        player: playerCharacter,
+        enemies: enemies,
+        ranks: ranks,
         bounty: 0,
         continueTravel: true,
         isEnemySpawnAllowed: true,
@@ -211,7 +211,7 @@ const store = new Vuex.Store({
     },
     getters: {
         currentRank: state => {
-            let rank_obj = state.rankList.filter(r => r.bounty <= state.bounty) // get all rank objects under bounty value
+            let rank_obj = state.ranks.filter(r => r.bounty <= state.bounty) // get all rank objects under bounty value
             return rank_obj[rank_obj.length-1] // select only the last one
         },
     },

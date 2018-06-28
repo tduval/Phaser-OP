@@ -21,8 +21,8 @@ preload.prototype = {
         this.load.atlas('myPlayerSprite', './assets/images/luffy_spritesheet.png', './assets/images/luffy_spritesheet.json');
 
         //load enemies npc
-        for (var i = 0; i < enemyCharacter.length; i++){
-            this.load.atlas(enemyCharacter[i].spriteName, enemyCharacter[i].srcSprite, enemyCharacter[i].srcJson);
+        for (var i = 0; i < enemies.length; i++){
+            this.load.atlas(enemies[i].spriteName, enemies[i].srcSprite, enemies[i].srcJson);
             //this.load.atlas('enemy-navy', './assets/images/npc/enemy-navy.png', './assets/images/npc/enemy-navy.json');
         }
 

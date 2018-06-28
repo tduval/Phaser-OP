@@ -62,8 +62,8 @@
                 methods: {
                     spawnEnemy: function () {
                         if (this.$store.state.isEnemySpawnAllowed) {
-                            let enemyUnlockList = this.$store.state.enemyList.filter(e => e.unlock <= this.$store.state.bounty);
-                            this.$store.commit('setCurrentEnemy', enemyUnlockList[Math.floor(Math.random() * enemyUnlockList.length)]);
+                            let enemiesUnlock = this.$store.state.enemies.filter(e => e.unlock <= this.$store.state.bounty);
+                            this.$store.commit('setCurrentEnemy', enemiesUnlock[Math.floor(Math.random() * enemiesUnlock.length)]);
                             createEnemies(this.$store.state.currentEnemy.spriteName);
                             this.$store.commit('setIsEnemySpawnAllowed', false);
                         }
@@ -81,10 +81,10 @@
                 store,
                 computed: {
                     enemies: function () {
-                        return this.$store.state.enemyList
+                        return this.$store.state.enemies
                     },
                     mainPlayer: function () {
-                        return this.$store.state.myPlayer
+                        return this.$store.state.player
                     },
                 },
                 mounted () {
