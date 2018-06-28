@@ -159,16 +159,16 @@ const rankList= [
 ]
 
 const store = new Vuex.Store({
-  state: {
-    myPlayer: playerCharacter,
-    enemyList: enemyCharacter,
-    rankList: rankList,
-    bounty: 0,
-    continueTravel: true,
-    isEnemySpawnAllowed: true,
-    currentEnemy: null,
-  },
-  mutations: {
+    state: {
+        myPlayer: playerCharacter,
+        enemyList: enemyCharacter,
+        rankList: rankList,
+        bounty: 0,
+        continueTravel: true,
+        isEnemySpawnAllowed: true,
+        currentEnemy: null,
+    },
+    mutations: {
         incrementBounty (state, amount){
             state.bounty += amount
             console.log("%cIncrement Bounty by : " + amount, "color:yellow; background:gray")
@@ -208,5 +208,11 @@ const store = new Vuex.Store({
         //     }
         //     return state.moneyPerSecond
         // }
-    }
+    },
+    getters: {
+        currentRank: state => {
+            let rank_obj = state.rankList.filter(r => r.bounty <= state.bounty) // get all rank objects under bounty value
+            return rank_obj[rank_obj.length-1] // select only the last one
+        },
+    },
 })

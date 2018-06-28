@@ -51,14 +51,10 @@
                     bounty: function () {
                         return this.$store.state.bounty
                     },
-                    rank: function () {
-                        let rank_obj = this.$store.state.rankList.filter(r => r.bounty <= this.bounty);
-                        return rank_obj[rank_obj.length-1]
-                    }
                 },
                 template:   `<div class="col" id="divBounty">
                                 <span class="h1 text-left pt-4"> Bounty {{ bounty }} $ </span>
-                                <span class="text-left red-text">({{ rank.name }})</span>
+                                <span class="text-left red-text">({{ this.$store.getters.currentRank.name }})</span>
                             </div>`,
             });
 
