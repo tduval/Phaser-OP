@@ -114,11 +114,21 @@ const store = new Vuex.Store({
     enemyList: enemyCharacter,
     rankList: rankList,
     bounty: 0,
+    continueTravel: true,
+    isEnemySpawnAllowed: true,
   },
   mutations: {
         incrementBounty (state, amount){
             state.bounty += amount
             console.log("Increment Bounty by : ", amount)
+        },
+        setContinueTravel (state, value){
+            state.continueTravel = value
+            console.log("set ContinueTravel to : ", value)
+        },
+        setIsEnemySpawnAllowed (state, value){
+            state.isEnemySpawnAllowed = value
+            console.log("set isEnemySpawnAllowed to : ", value)
         },
         // buyVehicle (state, vehicleID){
         //     var vehicle = state.vehicles.find(vehicle => vehicle.id === vehicleID)
