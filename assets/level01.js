@@ -64,7 +64,6 @@ level01.prototype = {
         //this.game.physics.arcade.collide(player, enemy, attackEnemy, null, this);
 
         if (store.state.continueTravel == true) {
-            console.log("%ccontinue travel... TRUE", "background:green");
             bg_clouds.tilePosition.x -= 0.1;
             bg_sea.tilePosition.x -= 0.25;
             bg_islands.tilePosition.x -= 0.3;
@@ -75,7 +74,6 @@ level01.prototype = {
                 store.commit('setContinueTravel', false);
             }
         } else {
-            console.log("%ccontinue travel... FALSE", "background:red");
             attackEnemy();
             if (enemyHP <= 0 && !enemyDied) {
                 enemy.play('die', 6, false, true);
@@ -178,7 +176,6 @@ function createEnemies(enemyType) {
     enemy.inputEnabled = true;
     enemy.input.enableDrag();
     enemyDied = false;
-    console.log("Enemy Spawned = ", enemyType);
 }
 
 
@@ -227,5 +224,4 @@ function createScrollingDecorationTile(trees) {
 function attackEnemy() {
     enemy.play('attack', true);
     player.play('atk_punch_side', true);
-    console.log("Attack Phase !");
 }

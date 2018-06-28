@@ -121,19 +121,19 @@ const store = new Vuex.Store({
   mutations: {
         incrementBounty (state, amount){
             state.bounty += amount
-            console.log("Increment Bounty by : ", amount)
+            console.log("%cIncrement Bounty by : " + amount, "color:yellow; background:gray")
         },
         setContinueTravel (state, value){
             state.continueTravel = value
-            console.log("set ContinueTravel to : ", value)
+            console.log("%cset ContinueTravel to : " + value, value ? "background:green" : "background:red")
         },
         setIsEnemySpawnAllowed (state, value){
             state.isEnemySpawnAllowed = value
-            console.log("set isEnemySpawnAllowed to : ", value)
+            console.log("%cset isEnemySpawnAllowed to : " + value, "color:white; background:gray")
         },
         setCurrentEnemy (state, enemy){
             state.currentEnemy = enemy
-            console.log("set CurrentEnemy to : ", enemy)
+            console.log("%cset CurrentEnemy to : " + enemy.spriteName, "color:red; background:gray")
         },
         // buyVehicle (state, vehicleID){
         //     var vehicle = state.vehicles.find(vehicle => vehicle.id === vehicleID)
