@@ -83,6 +83,7 @@ level01.prototype = {
                 store.commit('setContinueTravel', true);
                 store.commit('setIsEnemySpawnAllowed', true);
                 enemyDied = true;
+                player.play('jump_win_side');
             }
         }
 
