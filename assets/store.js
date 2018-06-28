@@ -1,9 +1,59 @@
 const playerCharacter =   {
         name: 'Luffy',
-        attacks: ['atk_punch_side'],
         spriteName: 'myPlayerSprite',
         srcSprite: './assets/images/luffy_spritesheet.png',
         srcJson: './assets/images/luffy_spritesheet.json',
+        attacks: [
+            {
+                name: 'Punch',
+                animName: 'atk_punch_side',
+                unlockRank: 0,
+                damage: 2,
+            },
+            {
+                name: 'Kick',
+                animName: 'atk_kick_side',
+                unlockRank: 1,
+                damage: 4,
+            },
+            {
+                name: 'Powerful Punch',
+                animName: 'run_atk_side',
+                unlockRank: 2,
+                damage: 10,
+            },
+            {
+                name: 'Gomu Gomu no Pistol',
+                animName: 'atk_pistol_side',
+                unlockRank: 3,
+                damage: 20,
+            },
+            {
+                name: 'Gomu Gomu no Head-butt',
+                animName: 'atk_head_side',
+                unlockRank: 4,
+                damage: 50,
+            },
+            {
+                name: 'Gomu Gomu no Stamp',
+                animName: 'atk_stamp_side',
+                unlockRank: 5,
+                damage: 100,
+            },
+            {
+                name: 'Gomu Gomu no Gatling',
+                animName: 'atk_gatling_side',
+                unlockRank: 6,
+                damage: 200,
+            },
+            {
+                name: 'Gomu Gomu no Bazooka',
+                animName: 'atk_bazooka_side',
+                unlockRank: 7,
+                damage: 500,
+            },
+
+        ],
     }
 
 const enemyCharacter = [
