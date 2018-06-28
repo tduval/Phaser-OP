@@ -12,9 +12,9 @@ level01.prototype = {
 
         //  The scrolling background
         //set to true to engage the update loop, set to false to stop the update loop for moving bg and player
-        enemyChoose = null;
         time_til_spawn = Math.random()*3000 + 2000;﻿  //Random time between 2 a﻿nd 5 seconds.
         last_spawn_time = game.time.time;
+        enemyDied = false;
 
         bg_clouds = game.add.tileSprite(0, 40, game.world.width, 50, 'clouds');
         bg_sea = game.add.tileSprite(0, game.world.height-110, game.world.width, 100, 'sea');
@@ -70,19 +70,21 @@ level01.prototype = {
             bg_islands.tilePosition.x -= 0.3;
             createScrollingDecorationTile(this.trees);
             createScrollingGroundTile(this.grounds);
-            if (enemy != null && enemy.x <= 210) {
+            if (enemy != null && enemy.x <= 210 && !enemyDied) {
                 enemy.body.velocity.x = 0;
                 store.commit('setContinueTravel', false);
             }
         } else {
             console.log("%ccontinue travel... FALSE", "background:red");
             attackEnemy();
-            if (enemyHP <= 0) {
+            if (enemyHP <= 0 && !enemyDied) {
                 enemy.play('die', 6, false, true);
                 enemy.y = (player.y + player.height);
-                store.commit('incrementBounty', enemyChoose.bountyEarn)
+                enemy.animations.currentAnim.onComplete.add(function (enemy) {enemy.kill();}, this);
+                store.commit('incrementBounty', store.state.currentEnemy.bountyEarn)
                 store.commit('setContinueTravel', true);
                 store.commit('setIsEnemySpawnAllowed', true);
+                enemyDied = true;
             }
         }
 
@@ -96,14 +98,14 @@ level01.prototype = {
 
         // enemy spawn timer logic
         current_time = game.time.time;
-        if((current_time - last_spawn_time > time_til_spawn) && (store.state.isEnemySpawnAllowed == true)) {
-          time_til_spawn = Math.random()*3000 + 2000;
-          last_spawn_time = current_time;
-          var enemyUnlockList = store.state.enemyList.filter(e => e.unlock <= store.state.bounty);
-          enemyChoose = enemyUnlockList[Math.floor(Math.random()*enemyUnlockList.length)];
-          createEnemies(enemyChoose.spriteName);
-          store.commit('setIsEnemySpawnAllowed', false);
-        }﻿
+        // if((current_time - last_spawn_time > time_til_spawn) && (store.state.isEnemySpawnAllowed == true)) {
+        //   time_til_spawn = Math.random()*3000 + 2000;
+        //   last_spawn_time = current_time;
+        //   var enemyUnlockList = store.state.enemyList.filter(e => e.unlock <= store.state.bounty);
+        //   enemyChoose = enemyUnlockList[Math.floor(Math.random()*enemyUnlockList.length)];
+        //   createEnemies(enemyChoose.spriteName);
+        //   store.commit('setIsEnemySpawnAllowed', false);
+        // }﻿
 
         player.bringToTop();
     },
@@ -175,7 +177,7 @@ function createEnemies(enemyType) {
     //  Also enable sprite for drag
     enemy.inputEnabled = true;
     enemy.input.enableDrag();
-
+    enemyDied = false;
     console.log("Enemy Spawned = ", enemyType);
 }
 

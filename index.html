@@ -17,7 +17,7 @@
             <h1 class="text-center">Title H1</h1>
             <div class="row">
                 <div-bounty></div-bounty>
-                <div class="col">col</div>
+                <div class="col"><btn-spawn-enemy></btn-spawn-enemy></div>
             </div>
             <div class="row">
                 <div class="col-sm-3 text-center" id="divControl">
@@ -60,6 +60,20 @@
                                 <span class="h1 text-left pt-4"> Bounty {{ bounty }} $ </span>
                                 <span class="text-left red-text">({{ rank.name }})</span>
                             </div>`,
+            });
+
+            Vue.component('btn-spawn-enemy', {
+                methods: {
+                    spawnEnemy: function () {
+                        if (this.$store.state.isEnemySpawnAllowed) {
+                            let enemyUnlockList = this.$store.state.enemyList.filter(e => e.unlock <= this.$store.state.bounty);
+                            this.$store.commit('setCurrentEnemy', enemyUnlockList[Math.floor(Math.random() * enemyUnlockList.length)]);
+                            createEnemies(this.$store.state.currentEnemy.spriteName);
+                            this.$store.commit('setIsEnemySpawnAllowed', false);
+                        }
+                    }
+                },
+                template:   `<button type="button" class="btn btn-outline-danger" v-bind:class="{'disable': this.$store.state.isEnemySpawnAllowed}" v-on:click="spawnEnemy">Spawn Enemy</button>`,
             });
 
             Vue.component('canvas-phaser', {
