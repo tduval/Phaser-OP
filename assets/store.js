@@ -3,12 +3,13 @@ const playerCharacter =   {
         spriteName: 'myPlayerSprite',
         srcSprite: './assets/images/luffy_spritesheet.png',
         srcJson: './assets/images/luffy_spritesheet.json',
+        currentAttack: 'atk_punch_side',
         attacks: [
             {
                 name: 'Punch',
                 animName: 'atk_punch_side',
                 unlockRank: 0,
-                damage: 2,
+                damage: '2',
             },
             {
                 name: 'Kick',
@@ -185,6 +186,10 @@ const store = new Vuex.Store({
             state.currentEnemy = enemy
             console.log("%cset CurrentEnemy to : " + enemy.spriteName, "color:red; background:gray")
         },
+        setCurrentPlayerAttack (state, attack){
+            state.player.currentAttack = attack
+            console.log("%cset CurrentPlayerAttack to : " + attack, "color:white; background:gray")
+        },
         // buyVehicle (state, vehicleID){
         //     var vehicle = state.vehicles.find(vehicle => vehicle.id === vehicleID)
         //     if (vehicle.id === vehicleID) {
@@ -213,6 +218,9 @@ const store = new Vuex.Store({
         currentRank: state => {
             let rank_obj = state.ranks.filter(r => r.bounty <= state.bounty) // get all rank objects under bounty value
             return rank_obj[rank_obj.length-1] // select only the last one
+        },
+        currentAttack: state => {
+            return state.player.attacks.find(r => r.animName == state.player.currentAttack)
         },
     },
 })

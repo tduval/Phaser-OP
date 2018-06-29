@@ -64,7 +64,7 @@
                         if (this.$store.state.isEnemySpawnAllowed) {
                             let enemiesUnlock = this.$store.state.enemies.filter(e => e.unlock <= this.$store.state.bounty);
                             this.$store.commit('setCurrentEnemy', enemiesUnlock[Math.floor(Math.random() * enemiesUnlock.length)]);
-                            createEnemies(this.$store.state.currentEnemy.spriteName);
+                            createEnemies(this.$store.state.currentEnemy);
                             this.$store.commit('setIsEnemySpawnAllowed', false);
                         }
                     }

@@ -44,4 +44,4 @@ var animEnemyList = ['idle',
                     'die',
                     ];
 
-var enemyHP = 100;
+var enemyHP = null;

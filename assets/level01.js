@@ -133,7 +133,10 @@ function playerAnimEnd(){
     if(store.state.continueTravel == true){ //no enemy = run
         player.play('run_side', true);
     }else{ //enemy in position = start fight
-        enemyHP -= 30;
+        enemyHP -= store.getters.currentAttack.damage;
+        let healthBarObj = enemy.children.find(r => r.data == "healthbar");
+        let damagePc = (store.getters.currentAttack.damage / store.state.currentEnemy.health);
+        healthBarObj.width = healthBarObj.width - (healthBarObj.width*0.2);
         console.log(enemyHP);
         //player.play('idle_front', true);
     }
@@ -159,9 +162,9 @@ function createInitialDecorationTile(trees, total){
 }
 
 function createEnemies(enemyType) {
-    enemy = this.game.add.sprite(game.world.width, game.world.centerY, enemyType);
+    enemy = this.game.add.sprite(game.world.width, game.world.centerY, store.state.currentEnemy.spriteName);
     //enemy.y = (player.y + player.height) - enemy.height;
-    enemyHP = 100;
+    enemyHP = store.state.currentEnemy.health;
     //Create all the character animation based on JSON atlas file
     for (var i = 0; i < animEnemyList.length; i++) {
         var ani = enemy.animations.add(animEnemyList[i], Phaser.Animation.generateFrameNames(animEnemyList[i]+'-',1,99), 12, false); //name, frames, frameRate, loop
@@ -179,11 +182,13 @@ function createEnemies(enemyType) {
     enemyDied = false;
 
     let healthBar =  this.game.add.graphics();
+    healthBar.data = "healthbar";
     healthBar.lineStyle(1, '0xFFFFFF', 1);
     healthBar.beginFill('0xff0000');
     healthBar.drawRect(0, -10, 50, 5);
     healthBar.endFill();
     enemy.addChild(healthBar);
+    console.log(enemy);
 }
 
 
