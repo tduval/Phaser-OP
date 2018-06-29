@@ -13,27 +13,99 @@
     </head>
     <body>
 
-        <div class="container">
+        <div class="container" id="Game-Container">
             <h1 class="text-center">Title H1</h1>
             <div class="row">
-                <div class="col">col</div>
-                <div class="col">col</div>
+                <div-bounty></div-bounty>
+                <div class="col"><btn-spawn-enemy></btn-spawn-enemy></div>
             </div>
             <div class="row">
-                <div class="col-sm-3 text-center" id="divControl"><h4>Control Section</h4><div id="divButton"></div></div>
-                <div class="col-sm-9 text-center" id="divPhaser"><h4 style="color: purple">Phaser.IO    <button type="button" class="btn btn-outline-dark btn-sm" onclick="debugSwitch()">Debug</button></h4><div id="divCanvasWrapper"></div></div>
+                <div class="col-sm-3 text-center" id="divControl">
+                    <h4>Control Section</h4>
+                    <div id="divButton"></div>
+                </div>
+                <div class="col-sm-9 text-center" id="divPhaser">
+                    <button type="button" class="btn btn-outline-dark btn-sm" onclick="debugSwitch()">Debug</button>
+                    <canvas-phaser></canvas-phaser>
+                </div>
             </div>
         </div>
 
         <script src="assets/libs/js/phaser.js"></script>
 
+        <!-- VueJS 2.5.16 JavaScript -->
+        <script src="assets/libs/js/vue.js"></script>
+        <!-- Vuex 3.0.1 JavaScript -->
+        <script src="assets/libs/js/vuex.js"></script>
+
+        <script src="assets/store.js"></script>
+
         <script src="assets/boot.js"></script>
         <script src="assets/preload.js"></script>
         <script src="assets/level01.js"></script>
 
-        <script src="assets/main.js"></script>
         <script type="text/javascript">
 
+            Vue.component('div-bounty', {
+                computed: {
+                    bounty: function () {
+                        return this.$store.state.bounty
+                    },
+                },
+                template:   `<div class="col" id="divBounty">
+                                <span class="h1 text-left pt-4"> Bounty {{ bounty }} $ </span>
+                                <span class="text-left red-text">({{ this.$store.getters.currentRank.name }})</span>
+                            </div>`,
+            });
+
+            Vue.component('btn-spawn-enemy', {
+                methods: {
+                    spawnEnemy: function () {
+                        if (this.$store.state.isEnemySpawnAllowed) {
+                            let enemiesUnlock = this.$store.state.enemies.filter(e => e.unlock <= this.$store.state.bounty);
+                            this.$store.commit('setCurrentEnemy', enemiesUnlock[Math.floor(Math.random() * enemiesUnlock.length)]);
+                            createEnemies(this.$store.state.currentEnemy);
+                            this.$store.commit('setIsEnemySpawnAllowed', false);
+                        }
+                    }
+                },
+                template:   `<button type="button" class="btn btn-outline-danger" v-bind:class="{'disable': this.$store.state.isEnemySpawnAllowed}" v-on:click="spawnEnemy">Spawn Enemy</button>`,
+            });
+
+            Vue.component('canvas-phaser', {
+                template:   `<div id="divCanvasWrapper"></div>`,
+            });
+
+            var vm = new Vue({
+                el: '#Game-Container',
+                store,
+                computed: {
+                    enemies: function () {
+                        return this.$store.state.enemies
+                    },
+                    mainPlayer: function () {
+                        return this.$store.state.player
+                    },
+                },
+                mounted () {
+                    //this.moneyProducer()
+                },
+                methods: {
+                    // laborClick: function () {
+                    //     store.commit('doLabor')
+                    // },
+                    // moneyProducer: function () {
+                    //     setInterval(() => {
+                    //         store.commit('countMoneyPerSecond')
+                    //         store.commit('incrementMoney')
+                    //     }, 1000)
+                    // },
+                },
+            });
+        </script>
+        <script src="assets/main.js"></script>
+
+        <script type="text/javascript">
             var domBtn = document.getElementById("divButton");
             for (var i = 0; i < animPlayerList.length; i++) {
                 var elementBtn = document.createElement("button");
@@ -54,6 +126,5 @@
                 console.log("debug : ", debugMode);
             }
         </script>
-
     </body>
 </html>

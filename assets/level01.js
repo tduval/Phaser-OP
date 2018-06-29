@@ -12,11 +12,9 @@ level01.prototype = {
 
         //  The scrolling background
         //set to true to engage the update loop, set to false to stop the update loop for moving bg and player
-        continueTravel = true; //need to implement this, still using the keyboard
-
-        isEnemySpawnAllowed = true;
         time_til_spawn = Math.random()*3000 + 2000;﻿  //Random time between 2 a﻿nd 5 seconds.
         last_spawn_time = game.time.time;
+        enemyDied = false;
 
         bg_clouds = game.add.tileSprite(0, 40, game.world.width, 50, 'clouds');
         bg_sea = game.add.tileSprite(0, game.world.height-110, game.world.width, 100, 'sea');
@@ -46,8 +44,6 @@ level01.prototype = {
         // Create 3 groups that will contain our objects
         this.grounds = this.game.add.group();
         this.trees = this.game.add.group();
-        this.coins = this.game.add.group();
-        this.enemies = this.game.add.group();
         createInitialDecorationTile(this.trees, 10) //create 20 trees
         createInitialGroundTile(this.grounds);
 
@@ -58,8 +54,6 @@ level01.prototype = {
 
         player.play('run_side');
 
-        // createEnemies(this.enemies);
-        // console.log("Enemies Group = ", this.enemies);
     },
     update: function(){
         // Make the player and the grounds collide
@@ -69,44 +63,48 @@ level01.prototype = {
         // Call the 'collide' function when the player touches the enemy
         //this.game.physics.arcade.collide(player, enemy, attackEnemy, null, this);
 
-        if (continueTravel) {
-            console.log("%ccontinue travel... TRUE", "background:green");
+        if (store.state.continueTravel == true) {
             bg_clouds.tilePosition.x -= 0.1;
             bg_sea.tilePosition.x -= 0.25;
             bg_islands.tilePosition.x -= 0.3;
             createScrollingDecorationTile(this.trees);
             createScrollingGroundTile(this.grounds);
-            if (enemy != null && enemy.x <= 210) {
+            if (enemy != null && enemy.x <= 210 && !enemyDied) {
                 enemy.body.velocity.x = 0;
-                continueTravel = false;
+                store.commit('setContinueTravel', false);
             }
         } else {
-            console.log("%ccontinue travel... FALSE", "background:red");
             attackEnemy();
-            if (enemyHP <= 0) {
+            if (enemyHP <= 0 && !enemyDied) {
                 enemy.play('die', 6, false, true);
                 enemy.y = (player.y + player.height);
-                continueTravel = true;
-                isEnemySpawnAllowed = true;
+                enemy.animations.currentAnim.onComplete.add(function (enemy) {enemy.kill();}, this);
+                store.commit('incrementBounty', store.state.currentEnemy.bountyEarn)
+                store.commit('setContinueTravel', true);
+                store.commit('setIsEnemySpawnAllowed', true);
+                enemyDied = true;
+                player.play('jump_win_side');
             }
         }
 
         player.animations.currentAnim.onComplete.add(playerAnimEnd, this);
 
         if (this.cursor.left.isDown){
-            continueTravel = false;
+            store.commit('setContinueTravel', false);
         }else if (this.cursor.right.isDown){
-            continueTravel = true;
+            store.commit('setContinueTravel', true);
         }
 
         // enemy spawn timer logic
         current_time = game.time.time;
-        if((current_time - last_spawn_time > time_til_spawn) && (isEnemySpawnAllowed)) {
-          time_til_spawn = Math.random()*3000 + 2000;
-          last_spawn_time = current_time;
-          createEnemies(enemyRegularList[Math.floor(Math.random()*enemyRegularList.length)]);
-          isEnemySpawnAllowed = false;
-        }﻿
+        // if((current_time - last_spawn_time > time_til_spawn) && (store.state.isEnemySpawnAllowed == true)) {
+        //   time_til_spawn = Math.random()*3000 + 2000;
+        //   last_spawn_time = current_time;
+        //   var enemyUnlockList = store.state.enemyList.filter(e => e.unlock <= store.state.bounty);
+        //   enemyChoose = enemyUnlockList[Math.floor(Math.random()*enemyUnlockList.length)];
+        //   createEnemies(enemyChoose.spriteName);
+        //   store.commit('setIsEnemySpawnAllowed', false);
+        // }﻿
 
         player.bringToTop();
     },
@@ -132,12 +130,15 @@ level01.prototype = {
 }
 
 function playerAnimEnd(){
-    if(continueTravel){ //no enemy = run
+    if(store.state.continueTravel == true){ //no enemy = run
         player.play('run_side', true);
     }else{ //enemy in position = start fight
-        enemyHP -= 30;
+        enemyHP -= store.getters.currentAttack.damage;
+        let healthBarObj = enemy.children.find(r => r.data == "healthbar");
+        let damagePc = (store.getters.currentAttack.damage / store.state.currentEnemy.health);
+        healthBarObj.width = healthBarObj.width - (healthBarObj.width*0.2);
         console.log(enemyHP);
-        player.play('idle_front', true);
+        //player.play('idle_front', true);
     }
 
 }
@@ -161,9 +162,9 @@ function createInitialDecorationTile(trees, total){
 }
 
 function createEnemies(enemyType) {
-    enemy = this.game.add.sprite(game.world.width, game.world.centerY, enemyType);
+    enemy = this.game.add.sprite(game.world.width, game.world.centerY, store.state.currentEnemy.spriteName);
     //enemy.y = (player.y + player.height) - enemy.height;
-    enemyHP = 100;
+    enemyHP = store.state.currentEnemy.health;
     //Create all the character animation based on JSON atlas file
     for (var i = 0; i < animEnemyList.length; i++) {
         var ani = enemy.animations.add(animEnemyList[i], Phaser.Animation.generateFrameNames(animEnemyList[i]+'-',1,99), 12, false); //name, frames, frameRate, loop
@@ -178,8 +179,16 @@ function createEnemies(enemyType) {
     //  Also enable sprite for drag
     enemy.inputEnabled = true;
     enemy.input.enableDrag();
+    enemyDied = false;
 
-    console.log("Enemy Spawned = ", enemyType);
+    let healthBar =  this.game.add.graphics();
+    healthBar.data = "healthbar";
+    healthBar.lineStyle(1, '0xFFFFFF', 1);
+    healthBar.beginFill('0xff0000');
+    healthBar.drawRect(0, -10, 50, 5);
+    healthBar.endFill();
+    enemy.addChild(healthBar);
+    console.log(enemy);
 }
 
 
@@ -228,5 +237,4 @@ function createScrollingDecorationTile(trees) {
 function attackEnemy() {
     enemy.play('attack', true);
     player.play('atk_punch_side', true);
-    console.log("Attack Phase !");
 }

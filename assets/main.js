@@ -7,7 +7,9 @@ var config = {
     physicsConfig: { arcade: true },
 };
 
-var player, continueTravel, enemy = null, debugMode = false;
+var player  = null;
+var enemy = null;
+var debugMode = false;
 
 var game = new Phaser.Game(config);
 console.log("Init Game Config... ", game);
@@ -42,7 +44,4 @@ var animEnemyList = ['idle',
                     'die',
                     ];
 
-var enemyRegularList = ['enemy-pirate',
-                        'enemy-navy'
-                        ];
-var enemyHP = 100;
+var enemyHP = null;

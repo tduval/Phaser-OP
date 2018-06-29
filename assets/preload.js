@@ -20,9 +20,13 @@ preload.prototype = {
         this.load.atlas('myTilesetSprite', './assets/images/tileset.png', './assets/images/tileset.json');
         this.load.atlas('myPlayerSprite', './assets/images/luffy_spritesheet.png', './assets/images/luffy_spritesheet.json');
 
+        this.load.atlas('fightParticles', './assets/images/luffy_particles.png', './assets/images/luffy_particles.json');
+
         //load enemies npc
-        this.load.atlas('enemy-pirate', './assets/images/npc/enemy-pirate.png', './assets/images/npc/enemy-pirate.json');
-        this.load.atlas('enemy-navy', './assets/images/npc/enemy-navy.png', './assets/images/npc/enemy-navy.json');
+        for (var i = 0; i < enemies.length; i++){
+            this.load.atlas(enemies[i].spriteName, enemies[i].srcSprite, enemies[i].srcJson);
+            //this.load.atlas('enemy-navy', './assets/images/npc/enemy-navy.png', './assets/images/npc/enemy-navy.json');
+        }
 
 	},
   	create: function(){
