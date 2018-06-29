@@ -20,6 +20,8 @@ preload.prototype = {
         this.load.atlas('myTilesetSprite', './assets/images/tileset.png', './assets/images/tileset.json');
         this.load.atlas('myPlayerSprite', './assets/images/luffy_spritesheet.png', './assets/images/luffy_spritesheet.json');
 
+        this.load.atlas('fightParticles', './assets/images/luffy_particles.png', './assets/images/luffy_particles.json');
+
         //load enemies npc
         for (var i = 0; i < enemies.length; i++){
             this.load.atlas(enemies[i].spriteName, enemies[i].srcSprite, enemies[i].srcJson);
