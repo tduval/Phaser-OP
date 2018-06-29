@@ -135,7 +135,7 @@ function playerAnimEnd(){
     }else{ //enemy in position = start fight
         enemyHP -= 30;
         console.log(enemyHP);
-        player.play('idle_front', true);
+        //player.play('idle_front', true);
     }
 
 }
@@ -177,6 +177,13 @@ function createEnemies(enemyType) {
     enemy.inputEnabled = true;
     enemy.input.enableDrag();
     enemyDied = false;
+
+    let healthBar =  this.game.add.graphics();
+    healthBar.lineStyle(1, '0xFFFFFF', 1);
+    healthBar.beginFill('0xff0000');
+    healthBar.drawRect(0, -10, 50, 5);
+    healthBar.endFill();
+    enemy.addChild(healthBar);
 }
 
 
